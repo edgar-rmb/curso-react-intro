@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Grupo_24" data-name="Grupo 24" transform="translate(771 -1406)">
+    <circle id="Elipse_4" data-name="Elipse 4" cx="25" cy="25" r="25" transform="translate(-771 1406)" fill="none"/>
+    <path id="delete-bin-2-fill" d="M10.75,9V3.75A1.75,1.75,0,0,1,12.5,2h14a1.75,1.75,0,0,1,1.75,1.75V9H37v3.5H33.5V35.25A1.75,1.75,0,0,1,31.75,37H7.25A1.75,1.75,0,0,1,5.5,35.25V12.5H2V9ZM21.974,23l3.094-3.094-2.474-2.474L19.5,20.526l-3.094-3.094-2.474,2.474L17.026,23l-3.094,3.094,2.474,2.474L19.5,25.474l3.094,3.094,2.474-2.474ZM14.25,5.5V9h10.5V5.5Z" transform="translate(-765 1412)" fill="#e03b3b"/>
+  </g>
+</svg>
