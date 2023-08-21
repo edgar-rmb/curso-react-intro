@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/curso-react-intro/static/css/main.73824f00.css",
-    "main.js": "/curso-react-intro/static/js/main.588c5a94.js",
+    "main.js": "/curso-react-intro/static/js/main.a736ecd7.js",
     "static/media/rombhus.gif": "/curso-react-intro/static/media/rombhus.5b8c62311d9ea4565930.gif",
     "static/media/rombhus.webp": "/curso-react-intro/static/media/rombhus.5f49a2f6af87e72312e0.webp",
     "index.html": "/curso-react-intro/index.html",
@@ -9,10 +9,10 @@
     "static/media/eye.svg": "/curso-react-intro/static/media/eye.7c78e310051e02d894174a347372055f.svg",
     "static/media/search.svg": "/curso-react-intro/static/media/search.03e3cbceeed87e732b2502bfe7b339f8.svg",
     "main.73824f00.css.map": "/curso-react-intro/static/css/main.73824f00.css.map",
-    "main.588c5a94.js.map": "/curso-react-intro/static/js/main.588c5a94.js.map"
+    "main.a736ecd7.js.map": "/curso-react-intro/static/js/main.a736ecd7.js.map"
   },
   "entrypoints": [
     "static/css/main.73824f00.css",
-    "static/js/main.588c5a94.js"
+    "static/js/main.a736ecd7.js"
   ]
 }
