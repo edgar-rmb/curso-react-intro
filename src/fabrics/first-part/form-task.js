@@ -29,7 +29,7 @@ function FormTask() {
       <form onSubmit={onSubmit}>
       <h2> Create new task </h2>
       <div className="form-task d-flex f-column mb-20">
-        <label htmlFor="taskName">Taks name</label>
+        <label htmlFor="taskName">Task name</label>
         <input 
           id="taskName"
           placeholder="My first task"
