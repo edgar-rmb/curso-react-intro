@@ -107,7 +107,7 @@ function FirstPartUI () {
         
                             {searchAll
                                 .filter(item => visible || !item.completed)
-                                .sort((a, b) => a.completed - b.completed) // Sort the tasks
+                                .sort((a, b) => a.completed - b.completed)
                                 .map(item => (
                                     <Item 
                                         key={item.text}
