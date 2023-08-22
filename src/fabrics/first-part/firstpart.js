@@ -142,7 +142,7 @@ function FirstPartUI () {
 
                 </div>
                 <div className="col-12 col-lg-6 d-flex j-content-center a-items-center">
-                    <div className='card blur'>
+                    <div className='card blur up-down-add-task'>
                         <FormTask />
                     </div>
                 </div>
