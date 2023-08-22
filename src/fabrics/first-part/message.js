@@ -12,7 +12,7 @@ const { totalTask, completedTask } = React.useContext(TaskContext);
     <>
       <div className="message">
         <p>
-          Has completado <span>{completedTask}</span> de <span>{totalTask}</span> tareas
+        You have completed <span>{completedTask}</span> of <span>{totalTask}</span> tasks
         </p>
       </div>
       <div className="progress-bar">
