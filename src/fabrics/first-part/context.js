@@ -33,11 +33,7 @@ const saveTasks = (newTask) => {
 }
 
 const addTask =(text) =>{
-    const newTask = [...allTask];
-    newTask.push({
-        text,
-        completed: false,
-    });
+    const newTask = [{ text, completed: false }, ...allTask];
     saveTasks(newTask);
 };
 

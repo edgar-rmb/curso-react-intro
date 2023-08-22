@@ -107,7 +107,11 @@ function FirstPartUI () {
         
                             {searchAll
                                 .filter(item => visible || !item.completed)
-                                .sort((a, b) => a.completed - b.completed)
+                                .sort((a, b) => {
+                                    if (a.completed && !b.completed) return 1;  
+                                    if (!a.completed && b.completed) return -1;
+                                    return -1;
+                                })
                                 .map(item => (
                                     <Item 
                                         key={item.text}
