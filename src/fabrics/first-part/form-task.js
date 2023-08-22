@@ -25,7 +25,7 @@ function FormTask() {
   }
   
   return(
-    <div>
+    <div >
       <form onSubmit={onSubmit}>
       <h2> Create new task </h2>
       <div className="form-task d-flex f-column mb-20">
