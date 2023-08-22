@@ -119,16 +119,14 @@ input:focus-visible {
 }
 
 html{
-  margin: 0;
-  padding: 0;
-  background: var(--primary);
-  background: linear-gradient(135deg,  #c8d4ff 33%, #9dc2ff 66%,  #5fb2ff 100%);
-  width: 100%;
   height: 100%;
 }
+
 body{
   margin: 0;
-  padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(135deg,  #c8d4ff 33%, #9dc2ff 66%,  #5fb2ff 100%);
   font-family: 'Montserrat', sans-serif;
 }
 
