@@ -25,9 +25,10 @@ function TaskProvider({ children }) {
     }, [setAllTask]);
 
     const addTask = useCallback((text) => {
-        const newTasks = [{ text, completed: false }, ...allTask];
+        const newTasks = [...allTask, { text, completed: false }];
         saveTasks(newTasks);
     }, [allTask, saveTasks]);
+    
 
     const taskCompleted = useCallback((text) => {
         const updatedTasks = allTask.map(item => 
