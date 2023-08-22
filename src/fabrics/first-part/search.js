@@ -12,7 +12,8 @@ function Search() {
     return(
       <div className='form-search'>
         <div className='area-search'>
-          <input 
+          <input
+          id='search'
           placeholder="Search..."
           value={ searchValue }
           onChange={(event) => {

@@ -163,7 +163,7 @@ h1{
 }
 
 h2{
-  margin:  0 0 .5rem 0;
+  margin:  0 0 1rem 0;
 }
 
 @media (max-height: 580px){
@@ -216,7 +216,19 @@ h2{
   bottom: 0;
   left: 0;
   width: 100%;
+  transition: .3s ease;
 }
+
+.card.up-down{
+  bottom: -160px;
+}
+
+@media (min-width: 992px){
+  .card.up-down{
+    bottom: 0;
+  }
+}
+
 
 @media (min-width: 992px){
   .card{
@@ -336,7 +348,6 @@ font-size: 1rem;
 }
 
 .form-search button{
-  width: 10%;
   height: 50px;
   background:transparent;
   border: none;
@@ -545,3 +556,44 @@ font-size: 1rem;
 .btn-reset:hover > svg{
   color:#f34b4b;
 }
+
+.area-add-task{
+  position: relative;
+}
+
+.btn-up-down{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: white;
+  transition: .3s ease;
+  background: var(--tertiary);
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  transform: rotate(180deg);
+  transition: .3s ease;
+}
+
+@media (min-width: 992px){
+  .btn-up-down{
+    display: none;
+  }
+}
+
+.btn-up-down svg{
+  width: 20px;
+  height: 20px;
+  transition: .3s ease;
+ }
+
+ .card.up-down .btn-up-down{
+  transform: rotate(0deg);
+ }
+
+ .btn-close{
+  padding: 0;
+ }

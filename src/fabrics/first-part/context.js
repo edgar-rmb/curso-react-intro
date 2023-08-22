@@ -1,116 +1,101 @@
-import React from 'react';
+import React, { useState, useRef, useCallback, createContext } from 'react';
 import { useLocalStorage } from '../../hooks/uselocalstorage';
 
-const TaskContext = React.createContext ();
+const TaskContext = createContext();
 
-function TaskProvider({children}) {
+function TaskProvider({ children }) {
+    const {
+        item: allTask,
+        saveItem: setAllTask,
+        loading,
+        error,
+    } = useLocalStorage('Tasks_V1', []);
 
-const {
-    item: allTask,
-    saveItem:  setAllTask,
-    loading,
-    error,
-} = useLocalStorage('Tasks_V1', []);
+    const completedTask = allTask.filter(item => item.completed).length;
+    //console.log(`La cantidad de tareas completadas: ${completedTask}`);
 
-const completedTask = allTask.filter(item => item.completed === true).length;
-console.log(`La cantidad de tareas completadas: ${completedTask}`);
-
-const totalTask = allTask.length;
-console.log(`La cantidad total de tareas es: ${totalTask}`);
-
-const [searchValue, setSearchValue] =  React.useState('');
-console.log(`Los usuarios buscan: ${searchValue}`);
-
-const searchAll = allTask.filter((item) =>{
-    const itemText = item.text.toLocaleLowerCase();
-    const searchText = searchValue.toLocaleLowerCase();
-    return itemText.includes(searchText);
-}
-);
-
-const saveTasks = (newTask) => { 
-    setAllTask(newTask);
-}
-
-const addTask =(text) =>{
-    const newTask = [{ text, completed: false }, ...allTask];
-    saveTasks(newTask);
-};
-
-const taskCompleted = (text) => { 
-    const newTask = allTask.map(item => 
-        item.text === text ? { ...item, completed: !item.completed } : item
+    const [searchValue, setSearchValue] = useState('');
+    const searchAll = allTask.filter(item => 
+        item.text.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
     );
-    saveTasks(newTask);
-};
+    //console.log(`Los usuarios buscan: ${searchValue}`);
 
-const taskDeleted = (text) => { 
-    const newTask = allTask.filter(item => item.text !== text);
-    saveTasks(newTask);
-};
+    const saveTasks = useCallback((newTask) => {
+        setAllTask(newTask);
+    }, [setAllTask]);
 
-const [visible, setVisible] = React.useState(true);
+    const addTask = useCallback((text) => {
+        const newTasks = [{ text, completed: false }, ...allTask];
+        saveTasks(newTasks);
+    }, [allTask, saveTasks]);
 
-const toggleVisibility = () => setVisible(prevVisible => !prevVisible);
+    const taskCompleted = useCallback((text) => {
+        const updatedTasks = allTask.map(item => 
+            item.text === text ? { ...item, completed: !item.completed } : item
+        );
+        saveTasks(updatedTasks);
+    }, [allTask, saveTasks]);
 
-const [tasks, setTasks] = React.useState([]);
+    const taskDeleted = useCallback((text) => {
+        const updatedTasks = allTask.filter(item => item.text !== text);
+        saveTasks(updatedTasks);
+    }, [allTask, saveTasks]);
 
-const [openModal, setOpenModal] = React.useState(false);
+    const [visible, setVisible] = useState(true);
+    const toggleVisibility = useCallback(() => {
+        setVisible(prevVisible => !prevVisible);
+    }, []);
 
-const resetTasks = () => {
-    const emptyTasks = [];
-    saveTasks(emptyTasks); 
-};
+    const [tasks, setTasks] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
 
-const resetTasksRef = React.useRef(resetTasks);
+    const handleReset = useCallback(() => {
+        localStorage.removeItem('Tasks_V1');
+        setAllTask([]);
+        setSearchValue('');
+        setVisible(true);
+        setOpenModal(false);
+    }, [setAllTask]);
 
-// Función que permite recetaer las tareas automaticamente al completar todas las tareas
-//const [shouldReset, setShouldReset] = React.useState(false);
+    const resetTasksRef = useRef(handleReset);
 
-const [hasModalBeenShown, setHasModalBeenShown] = React.useState(false);
+    const [hasModalBeenShown, setHasModalBeenShown] = React.useState(false);
 
+    const [hasClass, setHasClass] = React.useState(false);
 
-const handleReset = () => {
-    
-    localStorage.removeItem('Tasks_V1');
-    setAllTask([]);
-    setSearchValue('');
-    setVisible(true); 
-    setOpenModal(false);
-    setHasModalBeenShown(false);
-
-};
+    const handleButtonClick = () => {
+        setHasClass(prevState => !prevState);
+    };
 
     return (
-             <TaskContext.Provider value={{
-                loading,
-                error,
-                totalTask,
-                completedTask,
-                searchValue,
-                setSearchValue,
-                searchAll,
-                taskCompleted,
-                taskDeleted,
-                visible,
-                setVisible,
-                toggleVisibility,
-                tasks,
-                setTasks,
-                openModal,
-                setOpenModal,
-                addTask,
-                resetTasks,
-                resetTasksRef,
-                //shouldReset,
-                //setShouldReset,
-                hasModalBeenShown,
-                setHasModalBeenShown,
-                handleReset,
-             }}>
-                {children} 
-             </TaskContext.Provider>
+        <TaskContext.Provider value={{
+            loading,
+            error,
+            totalTask: allTask.length,
+            completedTask,
+            searchValue,
+            setSearchValue,
+            searchAll,
+            taskCompleted,
+            taskDeleted,
+            visible,
+            setVisible,
+            toggleVisibility,
+            tasks,
+            setTasks,
+            openModal,
+            setOpenModal,
+            addTask,
+            resetTasksRef,
+            handleReset,
+            hasModalBeenShown,
+            setHasModalBeenShown,
+            hasClass,
+            handleButtonClick,
+        }}>
+            {children}
+        </TaskContext.Provider>
     );
 }
 
-export { TaskContext, TaskProvider }
+export { TaskContext, TaskProvider };

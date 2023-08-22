@@ -7,7 +7,7 @@ function Modal ({isOpen, onClose, children}) {
     if (!isOpen) return null;
     return ReactDOM.createPortal(
         <div className="bg-modal">
-            <div className="modal  blur">
+            <div className="modal">
                 <button className="btn-close" onClick={onClose}> <AiFillCloseCircle /></button>
                 <span>
                 {children}

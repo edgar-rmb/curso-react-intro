@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Logo } from './logo';
 import { Title } from './title';
 import { Message } from './message';
@@ -15,142 +15,94 @@ import { Reset } from './reset';
 
 import { TaskContext } from './context';
 
-function FirstPartUI () {
-
-
-// Función que permite no borrar las tareas al completar todas las tareas 
+function FirstPartUI() {
     const {
         visible,
         toggleVisibility,
+        handleReset,
+        loading,
+        error,
+        searchAll,
+        taskCompleted,
+        taskDeleted,
+        openModal,
         setOpenModal,
         totalTask,
         completedTask,
         hasModalBeenShown,
         setHasModalBeenShown,
-        handleReset,
-    } = React.useContext(TaskContext);
+        hasClass,
+    } = useContext(TaskContext);
 
-    React.useEffect(() => {
-        if (totalTask > 0 && totalTask === completedTask && !hasModalBeenShown) {
-            setOpenModal(true);
-            setHasModalBeenShown(true);
-        }
-        
-        if (hasModalBeenShown) {
-            const timer = setTimeout(() => {
-                setOpenModal(false);
-            }, 2000);
+    // Lista de tareas ordenadas y filtradas
+    const filteredTasks = searchAll
+        .sort((a, b) => {
+            if (a.completed && !b.completed) return 1;
+            if (!a.completed && b.completed) return -1;
+            return -1;
+        })
+        .filter(item => visible || !item.completed);
+
+
+        React.useEffect(() => {
+            if (totalTask > 0 && totalTask === completedTask && !hasModalBeenShown) {
+                setOpenModal(true);
+                setHasModalBeenShown(true);
+            }
             
-            return () => {
-                clearTimeout(timer);
-            };
-        }
-    }, [totalTask, completedTask, hasModalBeenShown, setHasModalBeenShown, setOpenModal]);
-
-// Función que permite recetaer las tareas automaticamente al completar todas las tareas
-/* 
-    const {
-        visible,
-        setVisible,
-        setOpenModal,
-        totalTask,
-        completedTask,
-        resetTasksRef,
-        shouldReset,
-        setShouldReset,
-    } = React.useContext(TaskContext);
-
-    React.useEffect(() => {
-        if (shouldReset) {
-            resetTasksRef.current();
-            setShouldReset(false); // Después de resetear, establece shouldReset en false nuevamente
-        }
-    }, [shouldReset, resetTasksRef, setShouldReset]);
-
-    React.useEffect(() => {
-        if (totalTask > 0 && totalTask === completedTask) {
-            setOpenModal(true);
-    
-            const timer = setTimeout(() => {
-                setOpenModal(false);
-                setShouldReset(true); // Establece shouldReset en true cuando el modal se cierre
-            }, 2000);
-    
-            return () => clearTimeout(timer);
-        }
-    }, [totalTask, completedTask, setOpenModal, setShouldReset]);
-*/
+            if (hasModalBeenShown) {
+                const timer = setTimeout(() => {
+                    setOpenModal(false);
+                }, 3000);
+                
+                return () => {
+                    clearTimeout(timer);
+                };
+            }
+        }, [totalTask, completedTask, hasModalBeenShown, setHasModalBeenShown, setOpenModal]);
 
     return (
         <div className='section my-50'>
-        <div className="container">
-            <div className="row">
-                <div className="col-12 col-lg-6 tasks txt-center">
-                <Logo />
-                <Title />
-                <Message />
-                <Search/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-lg-6 tasks txt-center">
+                        <Logo />
+                        <Title />
+                        <Message />
+                        <Search />
 
-                <TaskContext.Consumer>
-                    {({
-                        loading,
-                        error,
-                        searchAll,
-                        taskCompleted,
-                        taskDeleted,
-                    }) => (
                         <List>
                             {loading && <Loading />}
                             {error && <Error />}
-        
-                            {(! loading && searchAll.length === 0) && <Empty />}
-        
-                            {searchAll
-                                .filter(item => visible || !item.completed)
-                                .sort((a, b) => {
-                                    if (a.completed && !b.completed) return 1;  
-                                    if (!a.completed && b.completed) return -1;
-                                    return -1;
-                                })
-                                .map(item => (
-                                    <Item 
-                                        key={item.text}
-                                        text={item.text} 
-                                        completed={item.completed}
-                                        onComplete={() => taskCompleted(item.text)}
-                                        onDeleted={() => taskDeleted(item.text)}
-                                    />
+                            {(!loading && filteredTasks.length === 0) && <Empty />}
+                            
+                            {filteredTasks.map(item => (
+                                <Item 
+                                    key={item.text}
+                                    text={item.text} 
+                                    completed={item.completed}
+                                    onComplete={() => taskCompleted(item.text)}
+                                    onDeleted={() => taskDeleted(item.text)}
+                                />
                             ))}
                         </List>
-                    )}
-                </TaskContext.Consumer>
-                    
-                <Hidden visible={visible} toggleVisibility={toggleVisibility} />
 
-                <Reset onReset={handleReset} />
-
-                <TaskContext.Consumer>
-                    {({
-                        openModal,
-                        setOpenModal,
-                    }) => (
-                    <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-                        Felicidades terminaste todas tus tareas
-                    </Modal>
-               )}
-               </TaskContext.Consumer>
-
-                </div>
-                <div className="col-12 col-lg-6 d-flex j-content-center a-items-center">
-                    <div className='card blur up-down-add-task'>
-                        <FormTask />
+                        <Hidden visible={visible} toggleVisibility={toggleVisibility} />
+                        <Reset onReset={handleReset} />
+                        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+                            Felicidades terminaste todas tus tareas
+                        </Modal>
+                    </div>
+                    <div className="col-12 col-lg-6 d-flex j-content-center a-items-center">
+                        <div className={`card blur ${hasClass && 'up-down'}`}>
+                            <FormTask />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     );
 }
 
-export { FirstPartUI }
+export { FirstPartUI };
 
