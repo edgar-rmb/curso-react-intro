@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rombhus-app/static/css/main.c19e776b.css",
-    "main.js": "/rombhus-app/static/js/main.739bdaae.js",
+    "main.js": "/rombhus-app/static/js/main.028d265d.js",
     "static/media/rombhus.gif": "/rombhus-app/static/media/rombhus.5b8c62311d9ea4565930.gif",
     "static/media/rombhus.webp": "/rombhus-app/static/media/rombhus.5f49a2f6af87e72312e0.webp",
     "static/media/eye-hidden.svg": "/rombhus-app/static/media/eye-hidden.d320a31139160fd2a53f102f5c98276e.svg",
@@ -9,10 +9,10 @@
     "static/media/eye.svg": "/rombhus-app/static/media/eye.7c78e310051e02d894174a347372055f.svg",
     "static/media/search.svg": "/rombhus-app/static/media/search.03e3cbceeed87e732b2502bfe7b339f8.svg",
     "main.c19e776b.css.map": "/rombhus-app/static/css/main.c19e776b.css.map",
-    "main.739bdaae.js.map": "/rombhus-app/static/js/main.739bdaae.js.map"
+    "main.028d265d.js.map": "/rombhus-app/static/js/main.028d265d.js.map"
   },
   "entrypoints": [
     "static/css/main.c19e776b.css",
-    "static/js/main.739bdaae.js"
+    "static/js/main.028d265d.js"
   ]
 }
